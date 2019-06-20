@@ -7,15 +7,19 @@
     </head>
     <body>
         <h1>CC Rank</h1>
-        <p>Site para classificar as disciplicas de Ciências da Computação - UFCG</p>
+        <p id="description">Site para classificar as disciplicas de Ciências da Computação - UFCG</p>
 
-        <form id="createUser" class="form-inline">
-            Primeiro Nome <input name="primeiroNome" type="text" />
-            Último Nome <input name='ultimoNome' type="text" />
-            E-mail <input name="email" type="email" />
-            Senha <input name ="password" type="password" />
-            <input type="button" onclick="createUser()" value="Submit!" />
+        <div class="myForm">
+            <h2>Cadastro</h2>
+            <form id="createUser" class="form-inline">
+                Primeiro Nome <input name="primeiroNome" type="text" />
+                Último Nome <input name='ultimoNome' type="text" />
+                E-mail <input name="email" type="email" />
+                Senha <input name ="password" type="password" />
+                <input type="button" class="myButton" onclick="createUser()" value="Cadastrar" />
         </form>
+        </div>
+
         <div id="result"></div>
 
         <script type="text/javascript">

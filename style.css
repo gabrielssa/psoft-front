@@ -4,9 +4,29 @@ input[type=text], input[type=password], input[type=email] {
     display: list-item;
     border: none;
     background: #AED8F0;
+    
   }
 
-input:focus { 
+h1{
+  text-align: center;
+}
+#description{
+  text-align: center;
+}
+
+.myForm{
+  text-align: center;
+  display: inline-block;
+}
+.myButton{
+  padding:8px 40px;
+  position: sticky;
+}
+
+input:hover { 
     background-color: #7AA9C4;
 }
 
+html{
+  font-family: sans-serif;
+}
