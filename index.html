@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>CC Rank</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <h1>CC Rank</h1>
+        <p>Site para classificar as disciplicas de Ciências da Computação - UFCG</p>
+
+        <form id="createUser" class="form-inline">
+            Primeiro Nome <input name="primeiroNome" type="text" />
+            Último Nome <input name='ultimoNome' type="text" />
+            E-mail <input name="email" type="email" />
+            Senha <input name ="password" type="password" />
+            <input type="button" onclick="createUser()" value="Submit!" />
+        </form>
+        <div id="result"></div>
+
+        <script type="text/javascript">
+            function createUser(){
+                var form = document.forms[0];
+                var data = {
+                    "email":form.elements["email"].value,
+                    "primeiroNome":form.elements["primeiroNome"].value,
+                    "ultimoNome":form.elements["ultimoNome"].value,
+                    "senha":form.elements["password"].value
+                }
+                
+                var url = 'http://localhost:8080/api/v1/usuarios/';
+
+                var div1 = document.getElementById("result");
+
+                fetch(url, {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                        headers:{
+                            'Content-Type': 'application/json'
+                        }
+                    }).then(res => res.json())
+                    .then(function(response){
+                        console.log('Success:', JSON.stringify(response))
+                        if (response.message != undefined){
+                            alert(response.message);
+                        }else{
+                            alert("Usuário Registrado: "+response.primeiroNome+" "+response.ultimoNome+ " "+response.email);
+                            location.reload();
+                        }
+                    });
+                }
+
+        </script>
+    </body>
+</html>
