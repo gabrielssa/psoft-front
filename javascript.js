@@ -84,14 +84,18 @@ function boasVindas(){
     if(localStorage.getItem("token") == null ){
         greetings.innerHTML = "Você não está logado";
         document.getElementById('login').style.visibility = 'visible';
+        document.getElementById('logout').style.visibility = 'hidden';
+        document.getElementById('createAccout').style.visibility = 'visible';
     }else{
         greetings.innerHTML = "Seja bem vindo";
         document.getElementById('login').style.visibility = 'hidden';
+        document.getElementById('logout').style.visibility = 'visible';
+        document.getElementById('createAccout').style.visibility = 'hidden';
     }
 }
 
 function logout(){
-    localStorage.setItem("token", null);
+    localStorage.removeItem("token");
     console.log("fez logout");
     console.log(localStorage.getItem("token"));
     boasVindas();
