@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>CC Rank</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script type="text/javascript" src="javascript.js">
+</script>
+    </head>
+    <body>
+        <h1>CC Rank</h1>
+        <p id="description">Site para classificar as disciplicas de Ciências da Computação - UFCG</p>
+
+        <div class="myForm">
+            <h2>Cadastro</h2>
+            <form id="createUser" class="form-inline">
+                Primeiro Nome <input name="primeiroNome" type="text" />
+                Último Nome <input name='ultimoNome' type="text" />
+                E-mail <input name="email" type="email" />
+                Senha <input name ="password" type="password" />
+                <input type="button" class="myButton" onclick="createUser()" value="Cadastrar" />
+        </form>
+        </div>
+        <div id="result"></div>
+
+        <div class="login">
+            <h2>Fazer Login</h2>
+            <form id="authenticate">
+                Email <input name="email" type="email" />
+                Senha <input name="senha" type="password" />
+                <input type="button" class="myButton" onclick="authenticate()" value="Logar" />
+            </form>
+        </div>
+        <div id="result2"></div>
+
+    </body>
+</html>

@@ -1,0 +1,98 @@
+function createUser(){
+    var form = document.forms[0];
+    var data = {
+        "email":form.elements["email"].value,
+        "primeiroNome":form.elements["primeiroNome"].value,
+        "ultimoNome":form.elements["ultimoNome"].value,
+        "senha":form.elements["password"].value
+    }
+    
+    var url = 'http://localhost:8080/api/v1/usuarios/';
+
+    var div1 = document.getElementById("result");
+
+    var configuration = {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers:{
+            'Content-Type': 'application/json'
+        }
+    };
+
+    fetch(url, configuration)
+    .then(response => response.json())
+    .then(function(response){
+        if (response.status != "404"){
+            div1.innerHTML = 'Conta '+response.email+' criada com sucesso';
+            setTimeout(function(){
+                div1.innerHTML = '';
+            }, 4000)
+        }else{
+            div1.innerHTML = response.message;
+            setTimeout(function(){
+                div1.innerHTML = '';
+            }, 4000)
+        }
+    })
+
+}
+
+
+function authenticate(email, senha){
+    var url = 'http://localhost:8080/api/v1/auth/login/';
+    var form = document.forms[1];
+
+    var data2 = {
+       "email":form.elements["email"].value,
+        "senha":form.elements["senha"].value
+        //"email":"diegosantiago@gmail.com",
+       // "senha":"ax1v09p2"
+    }
+    console.log(data2);
+    var init = {
+        method: 'POST',
+        body: JSON.stringify(data2),
+        headers:{
+            'Content-Type': 'application/json'
+        }
+    };
+
+    var failed = false;
+    fetch(url, init)
+    .then(function(res){
+        
+        if (res.ok){
+            //alert('Login Efetuado Com Sucesso');
+        }else{
+            failed = true;
+        }
+        return res.json()
+    })
+    .then(response => {
+        if (failed){
+            alert(response.message);
+        }else{
+            localStorage.setItem("token", response.token);
+            window.location.href = "/index.html"; 
+        }
+    });
+
+}
+
+function boasVindas(){
+    var greetings = document.getElementById("greetings");
+    if(localStorage.getItem("token") == null ){
+        greetings.innerHTML = "Você não está logado";
+        document.getElementById('login').style.visibility = 'visible';
+    }else{
+        greetings.innerHTML = "Seja bem vindo";
+        document.getElementById('login').style.visibility = 'hidden';
+    }
+}
+
+function logout(){
+    localStorage.setItem("token", null);
+    console.log("fez logout");
+    console.log(localStorage.getItem("token"));
+    boasVindas();
+}
