@@ -30,3 +30,12 @@ input:hover {
 html{
   font-family: sans-serif;
 }
+
+.disciplina{
+  padding:8px 20px;
+  background: #AED8F0;
+}
+
+.disciplina:hover{
+  background: #7AA9C4;
+}

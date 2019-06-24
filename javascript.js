@@ -75,7 +75,9 @@ function authenticate(email, senha){
             localStorage.setItem("token", response.token);
             window.location.href = "/index.html"; 
         }
-    });
+    }).catch(function(error){
+		alert(error.message);
+	});
 
 }
 
@@ -99,4 +101,33 @@ function logout(){
     console.log("fez logout");
     console.log(localStorage.getItem("token"));
     boasVindas();
+}
+
+function buscaDisciplina(){
+    var myInit = { method: 'GET',
+               mode: 'cors',
+               cache: 'default' };
+
+    console.log(myInit);
+
+    var form = document.forms[0];
+    disciplina = form.elements["paraPesquisar"].value;
+    var url = "http://localhost:8080/api/v1/disciplinas/"+disciplina;
+    console.log(url);
+
+    fetch(url, myInit)
+    .then(res => res.json())
+    .then(function(res){
+        var x = document.getElementById("disciplinas");
+        x.innerHTML="";
+        console.log("res: "+res);
+        res.forEach(element => {
+            console.log(element);
+            var div = document.createElement('div');
+            div.setAttribute('class', 'disciplina');
+            div.innerHTML = element.nome+" Id: "+element.id;
+            x.appendChild(div);
+            console.log(x);
+        });
+    });
 }
