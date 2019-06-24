@@ -1,5 +1,5 @@
 function createUser(){
-    var form = document.forms[0];
+    var form = document.forms[1];
     var data = {
         "email":form.elements["email"].value,
         "primeiroNome":form.elements["primeiroNome"].value,
@@ -8,8 +8,6 @@ function createUser(){
     }
     
     var url = 'http://localhost:8080/api/v1/usuarios/';
-
-    var div1 = document.getElementById("result");
 
     var configuration = {
         method: 'POST',
@@ -23,15 +21,10 @@ function createUser(){
     .then(response => response.json())
     .then(function(response){
         if (response.status != "404"){
-            div1.innerHTML = 'Conta '+response.email+' criada com sucesso';
-            setTimeout(function(){
-                div1.innerHTML = '';
-            }, 4000)
+            alert('Conta '+response.email+" criada!");
+            window.location.href = "/login.html";
         }else{
-            div1.innerHTML = response.message;
-            setTimeout(function(){
-                div1.innerHTML = '';
-            }, 4000)
+            alert(response.message);
         }
     })
 
@@ -62,7 +55,7 @@ function authenticate(email, senha){
     .then(function(res){
         
         if (res.ok){
-            //alert('Login Efetuado Com Sucesso');
+            alert('Login Efetuado Com Sucesso');
         }else{
             failed = true;
         }
