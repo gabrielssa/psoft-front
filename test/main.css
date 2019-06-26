@@ -1,0 +1,23 @@
+.lightbox {
+	/** Esconde a classe lightbox */
+	display: none;
+	/** Estilo basico para a classe */
+}
+.lightbox:target {
+    /** Aplica essa regras quando target ocorre na classe */
+    display: inline-block;
+    outline: none;
+    position: absolute;
+    background: orange;
+}
+a{
+    display:block;
+}
+input{
+float:left;
+}
+.close{
+    /**Classe para fechar a div, se quiser*/
+    display:inline;
+    padding-left:7px;
+}
