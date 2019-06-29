@@ -80,6 +80,7 @@ function authenticate(email, senha){
 function boasVindas(){
 
     console.log(localStorage.getItem("loggedUser"));
+    window.location.href = "#";
 
     var greetings = document.getElementById("greetings");
     if(localStorage.getItem("token") == null ){
@@ -235,5 +236,8 @@ function likeDiscipline(){
             alert("Erro: "+ response2.message);
         }
     });
+
+    
+    
 
 }

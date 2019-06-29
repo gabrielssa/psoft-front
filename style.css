@@ -16,13 +16,26 @@
 }
 
 .like:hover{
-  background:orange;
+  background:rgb(235, 144, 144);
 }
 
 .like{
-  background: red;
+  background: rgb(238, 76, 76);
   cursor: pointer;
+  text-transform: uppercase;
+  text-decoration: none;
 }
+
+.close{
+  background: rgb(97, 159, 196);
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.close:hover{
+  background: rgb(177, 212, 233);
+}
+
 #banner{
   position: relative;
   top: 50%;
