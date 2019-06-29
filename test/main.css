@@ -5,7 +5,7 @@
 }
 .lightbox:target {
     /** Aplica essa regras quando target ocorre na classe */
-    display: inline-block;
+    /**display: inline-block;*/
     outline: none;
     position: absolute;
     background: orange;

@@ -7,7 +7,7 @@ function createUser(){
         "senha":form.elements["password"].value
     }
     
-    var url = 'http://localhost:8080/api/v1/usuarios/';
+    var url = 'http://psoft-1152109412238.herokuapp.com/api/v1/usuarios/';
 
     var configuration = {
         method: 'POST',
@@ -32,7 +32,7 @@ function createUser(){
 
 
 function authenticate(email, senha){
-    var url = 'http://localhost:8080/api/v1/auth/login/';
+    var url = 'http://psoft-1152109412238.herokuapp.com/api/v1/auth/login/';
     var form = document.forms[1];
 
     var data2 = {
@@ -81,11 +81,13 @@ function boasVindas(){
         document.getElementById('login').style.visibility = 'visible';
         document.getElementById('logout').style.visibility = 'hidden';
         document.getElementById('createAccout').style.visibility = 'visible';
+        console.log(localStorage.getItem("token"));
     }else{
         greetings.innerHTML = "Seja bem vindo";
         document.getElementById('login').style.visibility = 'hidden';
         document.getElementById('logout').style.visibility = 'visible';
         document.getElementById('createAccout').style.visibility = 'hidden';
+        console.log(localStorage.getItem("token"));
     }
 }
 
@@ -94,6 +96,8 @@ function logout(){
     console.log("fez logout");
     console.log(localStorage.getItem("token"));
     boasVindas();
+    var x = document.getElementById("disciplinas");
+    x.innerHTML = '';
 }
 
 function buscaDisciplina(){
@@ -105,7 +109,7 @@ function buscaDisciplina(){
 
     var form = document.forms[0];
     disciplina = form.elements["paraPesquisar"].value;
-    var url = "http://localhost:8080/api/v1/disciplinas/"+disciplina;
+    var url = "http://psoft-1152109412238.herokuapp.com/api/v1/disciplinas/"+disciplina;
     console.log(url);
 
     fetch(url, myInit)
@@ -118,9 +122,37 @@ function buscaDisciplina(){
             console.log(element);
             var div = document.createElement('div');
             div.setAttribute('class', 'disciplina');
-            div.innerHTML = element.nome+" Id: "+element.id;
+            var verDisc;
+            
+            var discData ={
+                "nome":element.nome,
+                "id":element.id
+            }
+            //localStorage.setItem("Discpline", discData);
+
+            if (isLogged()){
+                test = element.id;
+                verDisc = ' <a href="#two" onclick="viewDiscipline(test)">[++Mostrar profile]</a>';
+            }else{
+                verDisc = '';
+            }
+
+            div.innerHTML = element.nome+" Id: "+element.id+verDisc;
             x.appendChild(div);
             console.log(x);
         });
     });
+}
+function isLogged(){
+    if(localStorage.getItem("token") == null ){
+        return false;
+    }else{
+        return true;
+    }
+}
+
+function viewDiscipline(test){
+    var disciTitle = document.getElementById("discTitle");
+    disciTitle.innerHTML = test;
+    console.log("works! "+test);
 }
