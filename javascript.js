@@ -1,3 +1,5 @@
+loggedUserEmail = '';
+
 function createUser(){
     var form = document.forms[1];
     var data = {
@@ -67,7 +69,7 @@ function authenticate(email, senha){
         if (failed){
             alert(response.message);
         }else{
-            localStorage.setItem("loggedUserEmail", form.elements["email"].value);
+            localStorage.setItem("loggedEmail",form.elements["email"].value);
             localStorage.setItem("token", response.token);
             window.location.href = "/index.html"; 
         }
@@ -107,6 +109,11 @@ function logout(){
     x.innerHTML = '';
 }
 
+
+function closeDisciplina(){
+    vendoDisciplina = '';
+}
+
 function buscaDisciplina(){
     var myInit = { method: 'GET',
                mode: 'cors',
@@ -130,7 +137,7 @@ function buscaDisciplina(){
             var div = document.createElement('div');
             div.setAttribute('class', 'disciplina');
             var verDisc;
-            
+            console.log(verDisc);
             var discData ={
                 "nome":element.nome,
                 "id":element.id
@@ -138,7 +145,7 @@ function buscaDisciplina(){
 
             if (isLogged()){
                 test = element.id;
-                verDisc = ' <a href="#two" onclick="viewDiscipline(test)">[++Mostrar profile]</a>';
+                verDisc = ` <a href="#two" onclick="viewDiscipline(${test})">[++Mostrar profile]</a>`;
             }else{
                 verDisc = '';
             }
@@ -158,12 +165,10 @@ function isLogged(){
 }
 
 function viewDiscipline(id){
+    vendoDisciplina = id;
+    //console.log(id);
     //armazenando o id da discplina
-    localStorage.setItem("dId", id);
-
-    var disciplina;
-
-    /*Fetch Part */
+    //localStorage.setItem("dId", id);
     url = `http://psoft-1152109412238.herokuapp.com/api/v1/disciplina/${id}`
     var myToken = localStorage.getItem("token");
     const myHeaders = new Headers();
@@ -179,39 +184,43 @@ function viewDiscipline(id){
     fetch(url, myInit)
     .then(res => res.json())
     .then(function(response){
-        disciplina = response;
-        console.log("response: "+response);
-        localStorage.setItem("disciplina", JSON.stringify(response));
-    });
+        /* Parte de alterar o documento*/   
 
-    /* Parte de alterar o documento*/   
-    disciplina = JSON.parse(localStorage.getItem("disciplina"));
+        var disciTitle = document.getElementById("discTitle");
+        disciTitle.innerHTML = response.nomeDisciplina;
 
-    var disciTitle = document.getElementById("discTitle");
-    disciTitle.innerHTML = disciplina.nomeDisciplina;
+        var viewLikes = '';
+        var qtdLikes = 0;
 
+        response.likes.forEach(element =>{
+            viewLikes += element.nome + ', ';
+            qtdLikes += 1;
+        });
 
-    var viewLikes = '';
-    disciplina.likes.forEach(element =>{
-        viewLikes += element.nome + ', ';
-    });
-    /* Alterando o html */
-    var disciLikes = document.getElementById("discLikes");
-    disciLikes.innerHTML = viewLikes + "curtiram(iu) essa disciplina";
+        var numLikes = document.getElementById("qtdLikes");
 
+        numLikes.innerHTML = `<strong>${qtdLikes}</strong> pessoas gostaram dessa disciplina`;
 
+        var disciLikes = document.getElementById("discLikes");
+        disciLikes.innerHTML = viewLikes + "curtiram(iu) essa disciplina";
+
+        });
 
 }
 
 function likeDiscipline(){
-    var disciplina = localStorage.getItem("disciplina");
-    disciplina = JSON.parse(disciplina);
-    var discId = localStorage.getItem("dId");
-    var userEmail = localStorage.getItem("loggedUserEmail");
 
-    url = `http://psoft-1152109412238.herokuapp.com/api/v1/disciplina/${discId}/like/${userEmail}`;
+    var userEmail = localStorage.getItem("loggedEmail");
+
+    console.log(userEmail);
+    //console.log(vendoDisciplina);
+
+    url = `http://psoft-1152109412238.herokuapp.com/api/v1/disciplina/${vendoDisciplina}/like/${userEmail}`;
+
+    console.log(url);
 
     var myToken = localStorage.getItem("token");
+
     const myHeaders = new Headers();
     myHeaders.append('Authorization', 'Bearer '+myToken);
 
@@ -225,7 +234,10 @@ function likeDiscipline(){
     fetch(url, init)
     .then(function(res){
         if (res.ok){
-            alert(`Você curtiu ${disciplina.nomeDisciplina}`);
+            paraVer = vendoDisciplina;
+            closeDisciplina()
+            viewDiscipline(paraVer);
+            alert(`Você acaba de curtir essa disciplina`);
         }else{
             loginFail = true;
         }
