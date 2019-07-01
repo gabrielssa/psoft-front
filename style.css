@@ -17,6 +17,14 @@
   transform: translate(-50%);
 }
 
+.widgetsDiv{
+  text-decoration: none;
+  font-family: sans-serif;
+  font-size: small;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
 .horario{
   font-size: small;
 }
@@ -24,6 +32,9 @@
 .comentario{
   font-size: large;
   padding: 10px;
+  background: rgb(51, 196, 245);
+  margin-bottom: 3px;
+
 }
 .comentario:hover{
   background: orange;
