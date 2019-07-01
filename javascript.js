@@ -184,6 +184,7 @@ function viewDiscipline(id){
     fetch(url, myInit)
     .then(res => res.json())
     .then(function(response){
+        console.log(response);
         /* Parte de alterar o documento*/   
 
         var disciTitle = document.getElementById("discTitle");
