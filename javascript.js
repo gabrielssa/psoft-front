@@ -165,6 +165,8 @@ function isLogged(){
 
 function viewDiscipline(id){
     vendoDisciplina = id;
+
+    document.forms[1].elements["comentar"].value = '';
     
     //console.log(id);
     //armazenando o id da discplina
@@ -189,6 +191,15 @@ function viewDiscipline(id){
     .then(res => res.json())
     .then(function(response){
         /* Parte de alterar o documento*/   
+
+        console.log(response);
+
+        var likeStatus = document.getElementById("likeStatus");
+        if (response.curtiu){
+            likeStatus.innerHTML = "Você Curtiu! =D";
+        }else{
+            likeStatus.innerHTML = "Dar Like";
+        }
 
         var disciTitle = document.getElementById("discTitle");
         disciTitle.innerHTML = response.nomeDisciplina;
@@ -230,7 +241,7 @@ function viewDiscipline(id){
             console.log(response.comentarios);
             commentsDiv.innerHTML = '';
 
-            response.comentarios.forEach(element =>{
+            response.comentarios.reverse().forEach(element =>{
 
                 div = document.createElement('div');
                 div.setAttribute('class', 'comentario');
@@ -346,6 +357,7 @@ function likeDiscipline(){
     fetch(url, init)
     .then(function(res){
         if (res.ok){
+            console.log(res);
             paraVer = vendoDisciplina;
             closeDisciplina()
             viewDiscipline(paraVer);
