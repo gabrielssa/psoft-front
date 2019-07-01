@@ -13,6 +13,20 @@
   top: 20px;
   width: 500px;
   background: #00BFFF;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.horario{
+  font-size: small;
+}
+
+.comentario{
+  font-size: large;
+  padding: 10px;
+}
+.comentario:hover{
+  background: orange;
 }
 
 .like:hover{
@@ -34,6 +48,10 @@
 
 .close:hover{
   background: rgb(177, 212, 233);
+}
+
+.paraComentar{
+  width: 300px;
 }
 
 #banner{

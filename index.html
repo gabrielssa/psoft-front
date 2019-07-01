@@ -7,10 +7,10 @@
 		<script type="text/javascript" src="javascript.js"></script>
 
 	</head>
-	<body onload="boasVindas()">
+	<body id="body" onload="boasVindas()">
 
 		<!-- Banner -->
-			<section id="banner">
+			<section id="banner" class="base">
 				<h2><strong>CC RANK</strong></h2>
 				<p>Classificação de Disciplinas</p>
 				<ul class="actions">
@@ -20,7 +20,7 @@
 				</ul>
 			</section>
 
-		<section id="pesquisa" class="wrapper special">
+		<section id="pesquisa" class="base">
 			<p id="greetings">></p>
 			<form id="buscaDisciplina">
 				<input type="text" class ="paraPesquisar" name="paraPesquisar" placeholder="Pesquise uma disciplina aqui" />
@@ -29,7 +29,7 @@
 		</section>
 
 		<!-- One -->
-			<section id="one" class="wrapper special">
+			<section id="one" class="base">
 				<div class="inner">
 					<header class="major">
 						<h2></h2>
@@ -49,15 +49,28 @@
 					<h1 id="discTitle">Nome da Disciplina</h1>
 					<p id="qtdLikes"></p>
 					<p id="discLikes"></p>
+					<div class="painelC">
+						<h2>Comentários:</h2>
+
+						<form>
+
+							<input type="text" id="tezt" class="paraComentar" name="comentar" placeholder="Escreva seu comentário aqui"/>
+
+							<input type="button" id="enviaC" class="enviarComentario" name="enviarComentario" value="Comentar" />
+
+						</form>
+
+						<div id="comments">
+						</div>
+					</div>
 				</div>
 			</section>
 
         
 
 		<!-- Footer -->
-			<footer id="footer">
+			<footer id="footer" class="base">
 				<div class="copyright">
-					&copy; CC rank
 				</div>
 			</footer>
 

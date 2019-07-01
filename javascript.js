@@ -1,4 +1,3 @@
-loggedUserEmail = '';
 
 function createUser(){
     var form = document.forms[1];
@@ -166,10 +165,15 @@ function isLogged(){
 
 function viewDiscipline(id){
     vendoDisciplina = id;
+    
     //console.log(id);
     //armazenando o id da discplina
     //localStorage.setItem("dId", id);
-    url = `http://psoft-1152109412238.herokuapp.com/api/v1/disciplina/${id}`
+    userEmail = localStorage.getItem("loggedEmail")
+    url = `http://psoft-1152109412238.herokuapp.com/api/v1/disciplina/${id}/${userEmail}/`;
+
+    console.log(url);
+
     var myToken = localStorage.getItem("token");
     const myHeaders = new Headers();
     myHeaders.append('Authorization', 'Bearer '+myToken);
@@ -184,7 +188,6 @@ function viewDiscipline(id){
     fetch(url, myInit)
     .then(res => res.json())
     .then(function(response){
-        console.log(response);
         /* Parte de alterar o documento*/   
 
         var disciTitle = document.getElementById("discTitle");
@@ -205,7 +208,82 @@ function viewDiscipline(id){
         var disciLikes = document.getElementById("discLikes");
         disciLikes.innerHTML = viewLikes + "curtiram(iu) essa disciplina";
 
+        //Comentando
+        var commentsDiv = document.getElementById("comments");
+        var commentButton = document.getElementById("enviaC");
+        var form = document.forms[1];
+        var comentario = form.elements["comentar"].value;
+        
+
+        
+        commentButton.onclick = function(){
+            comentaDisciplina(vendoDisciplina, comentario, userEmail,myToken)
+        };
+
+        //Exibindo Comentários
+
+        if (response.comentarios == 0){
+            commentsDiv.innerHTML ="";
+            div1 = document.createElement('div');
+            div1.innerHTML = 'Ninguém comentou sobre essa disciplina';
+            commentsDiv.appendChild(div1);
+
+        }else{
+            commentsDiv.innerHTML = '';
+
+            response.comentarios.forEach(element =>{
+
+                div = document.createElement('div');
+                div.setAttribute('class', 'comentario');
+
+                divHour = document.createElement('div');
+                divHour.setAttribute('class', 'horario');
+                divHour.innerHTML = `Dia ${element.dataEHora.slice(0,10)}  às ${element.dataEHora.slice(11,16)}`;
+
+                div.innerHTML = `<strong>${element.usuario}</strong> disse: ${element.comentario}`;
+                div.appendChild(divHour);
+
+                commentsDiv.appendChild(div);
+            });
+            //closeDisciplina();
+            //viewDiscipline(id);
+        }
+
+
         });
+
+}
+
+function xablau(xablauzinho){
+    console.log("xablau: "+xablauzinho);
+}
+
+function comentaDisciplina(id, comentario, userEmail,myToken){
+    ///{id}/comentario/{email}/{comentario}
+
+    url = `http://psoft-1152109412238.herokuapp.com/api/v1/disciplina/${id}/comentario/${userEmail}/${comentario}`;
+
+    console.log(`tentando comentar usando as seguintes configurações: id: ${id}, userEmail: ${userEmail}, comentario: ${comentario}`)
+
+    const myHeaders = new Headers();
+    myHeaders.append('Authorization', 'Bearer '+myToken);
+
+    var myInit = { 
+        method: 'POST',
+        mode: 'cors',
+        cache: 'default',
+        headers: myHeaders
+    };
+
+    fetch(url, myInit)
+    .then(res => res.json())
+    .then(function(response){
+        console.log(response);
+        closeDisciplina();
+        viewDiscipline(id);
+    });
+
+
 
 }
 
