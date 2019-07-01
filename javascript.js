@@ -171,7 +171,8 @@ function viewDiscipline(id){
     //console.log(id);
     //armazenando o id da discplina
     //localStorage.setItem("dId", id);
-    userEmail = localStorage.getItem("loggedEmail")
+    userEmail = localStorage.getItem("loggedEmail");
+
     url = `http://psoft-1152109412238.herokuapp.com/api/v1/disciplina/${id}/${userEmail}/`;
 
     console.log(url);
@@ -257,7 +258,12 @@ function viewDiscipline(id){
 
                 widgetsDiv = document.createElement('div');
                 widgetsDiv.setAttribute('class', 'widgetsDiv');
-                widgetsDiv.innerHTML = `<a href=#two onclick="apagar(${element.id},${id})">Apagar</a>`;
+
+
+                if (element.emailUsuario == userEmail){
+                    widgetsDiv.innerHTML = `<a href=#two onclick="apagar(${element.id},${id})">Apagar</a>`;
+                }
+                
 
                 div.appendChild(divHour);
                 div.appendChild(widgetsDiv);
@@ -307,7 +313,7 @@ function comentaDisciplina(id,userEmail,myToken){
 
     url = `http://psoft-1152109412238.herokuapp.com/api/v1/disciplina/${id}/comentario/${userEmail}/${comentario}`;
 
-    console.log(`tentando comentar usando as seguintes configurações: id: ${id}, userEmail: ${userEmail}, comentario: ${comentario}`)
+    //console.log(`tentando comentar usando as seguintes configurações: id: ${id}, userEmail: ${userEmail}, comentario: ${comentario}`)
 
     const myHeaders = new Headers();
     myHeaders.append('Authorization', 'Bearer '+myToken);
