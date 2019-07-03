@@ -17,6 +17,17 @@
   transform: translate(-50%);
 }
 
+.verPerfil{
+  text-decoration: none;
+  text-transform: uppercase;
+  color: white;
+}
+
+.verPerfil:hover{
+  background: rgb(243, 111, 111);
+  color: #00BFFF;
+}
+
 .widgetsDiv{
   text-decoration: none;
   font-family: sans-serif;
@@ -113,14 +124,16 @@ input:hover {
     background-color: #7AA9C4;
 }
 
-html{
-  font-family: sans-serif;
-}
-
 .disciplina{
   padding:8px 20px;
   background: #AED8F0;
   width: 300px;
+}
+
+.comentarioResposta{
+  padding: 40px;
+  height: 30px;
+  padding-top: 0px;
 }
 
 .disciplina:hover{
@@ -136,4 +149,28 @@ ul li{
   display: inline;
   padding-left: 15px;
   padding-right: 15px;
+}
+
+#removeComment{
+  padding-right: 5px;
+  text-decoration: none;
+
+  
+}
+
+#removeComment:hover{
+  color:green;
+}
+
+#replyComment{
+  text-decoration: none;
+}
+
+#replyComment:hover{
+  color:green;
+}
+
+.comentario{
+  text-decoration: none;
+  
 }
