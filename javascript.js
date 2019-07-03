@@ -306,6 +306,7 @@ function viewDiscipline(id){
                 div.appendChild(divComenta);
 
                 console.log(document.getElementById(element.id));
+
             });
             //closeDisciplina();
             //viewDiscipline(id);
@@ -316,6 +317,7 @@ function viewDiscipline(id){
 
 }
 
+
 function respondeComentario(id){
     //{id}/comentario_resposta/{email}/{comentario}
     var loggedEmail = localStorage.getItem("loggedEmail");
@@ -324,6 +326,27 @@ function respondeComentario(id){
     var meuComentario = oform.paraResponder.value;
 
     url = `http://psoft-1152109412238.herokuapp.com/api/v1/disciplina/${id}/comentario_resposta/${loggedEmail}/${meuComentario}`;
+
+    var myToken = localStorage.getItem("token");
+    const myHeaders = new Headers();
+    myHeaders.append('Authorization', 'Bearer '+myToken);
+
+    var myInit = { 
+        method: 'POST',
+        mode: 'cors',
+        cache: 'default',
+        headers: myHeaders
+    };
+
+    fetch(url, myInit)
+    .then(res => res.json())
+    .then(function(response){
+        console.log(response);
+        var paraVer = vendoDisciplina;
+        closeDisciplina();
+        viewDiscipline(paraVer);
+    });
+
 
     console.log("respondendo o comentário " +id);
     console.log(url);
@@ -349,9 +372,12 @@ function verRespostas(id){
         headers: myHeaders
     };
 
+
     fetch(url, myInit)
     .then(res => res.json())
     .then(function(response){
+        response = response.reverse();
+
         response.forEach(element =>{
             div = document.createElement('div');
             div.innerHTML = '';
@@ -376,17 +402,30 @@ function verRespostas(id){
                 widgetsDiv.innerHTML = `<a href=#two id="removeComment" onclick="apagar(${element.id},${vendoDisciplina})">Apagar</a>`;
             }
 
-            widgetsDiv.innerHTML += '<a href=#two id="replyComment"> Responder</a>';
+            widgetsDiv.innerHTML += `<a href=#two id="replyComment"> Responder</a>`;
             widgetsDiv.innerHTML += `<a href=#two id="replyComment" onclick="verRespostas(${element.id})"> Ver Respostas</a>`;
             
+            divComenta = document.createElement('div');
+            divComenta.setAttribute('class', 'responderComentario');
+            var formComenta = `<form id=form${element.id}>
+
+            <input type="text" class ="respostaComment" name="paraResponder" autocomplete="off"  placeholder="sua resposta" />
+			<input type="button" class="myButton" value="Responder" onclick="respondeComentario(${element.id})"/>
+            </form>`;
+            divComenta.innerHTML = formComenta;
 
             div.appendChild(divHour);
             div.appendChild(widgetsDiv);
+            div.appendChild(divComenta);
             mainComment.appendChild(div);
+
         });
     });
+}
 
-
+function respondeCDC(id){
+    console.log("works! cdc")
+    respondeComentario(id)
 }
 
 function removeLike(userEmail){

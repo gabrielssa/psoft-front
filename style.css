@@ -36,6 +36,17 @@
   cursor: pointer;
 }
 
+.batata{
+  background: black;
+  padding: 100;
+}
+
+
+
+#rc{
+  background: black;
+}
+
 .horario{
   font-size: small;
 }
@@ -132,8 +143,9 @@ input:hover {
 
 .comentarioResposta{
   padding: 40px;
-  height: 30px;
+  height: fit-content;
   padding-top: 0px;
+  padding-bottom: 30px;
 }
 
 .disciplina:hover{
@@ -172,5 +184,6 @@ ul li{
 
 .comentario{
   text-decoration: none;
-  
+  display: block;
+  height: fit-content;
 }
