@@ -22,6 +22,9 @@
 
 		<section id="pesquisa" class="base">
 			<p id="greetings">></p>
+
+			<a href="#ranking" onclick="mostraRanking()">Ranking das disciplinas</a>
+
 			<form id="buscaDisciplina">
 				<input type="text" class ="paraPesquisar" name="paraPesquisar" autocomplete="off"  placeholder="Pesquise uma disciplina aqui" />
 				<input type="button" class="myButton" value="Pesquisar" onclick="buscaDisciplina()"/>
@@ -35,8 +38,21 @@
 						<h2></h2>
 					</header>
 					<div id="disciplinas" class="disciplinas">
-
 					</div>
+				</div>
+			</section>
+
+		<!-- Ranking das disciplinas-->
+
+			<section id="ranking" class="ranking">
+				<div class="inner">
+					<a class="close" href="#">Fechar</a>
+					<header class="major">
+						<h2>Ranking de disciplinas</h2>
+					</header>
+					<div id="rdisciplinas" class="rdisciplinas">
+					</div>
+
 				</div>
 			</section>
 

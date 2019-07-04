@@ -172,7 +172,12 @@ function isLogged(){
     }
 }
 
+function mostraForm(id){
+    console.log("mostrando o form");
+}
+
 function viewDiscipline(id){
+
     vendoDisciplina = id;
 
     document.forms[1].elements["comentar"].value = '';
@@ -275,15 +280,15 @@ function viewDiscipline(id){
                 //subdive de widgets em cada comentário
 
                 widgetsDiv = document.createElement('div');
-                widgetsDiv.setAttribute('class', 'widgetsDiv');
+                widgetsDiv.setAttribute('id', `widgetsDiv${element.id}`);
 
 
                 if (element.emailUsuario == userEmail){
                     widgetsDiv.innerHTML = `<a href=#two id="removeComment" onclick="apagar(${element.id},${id})">Apagar</a>`;
                 }
 
-                widgetsDiv.innerHTML += '<a href=#two id="replyComment"> Responder</a>';
-                widgetsDiv.innerHTML += `<a href=#two id="replyComment" onclick="verRespostas(${element.id})"> Ver Respostas</a>`;
+                widgetsDiv.innerHTML += `<a href=#two id="replyComment"> Responder</a>`;
+                widgetsDiv.innerHTML += `<a href=#two class="verRespostas" id="verRespostas${element.id}" onclick="verRespostas(${element.id})"> Ver Respostas</a>`;
 
                 //Criando o formulario para resposta do comentário no próprio comentário
                 divComenta = document.createElement('div');
@@ -307,11 +312,20 @@ function viewDiscipline(id){
 
                 console.log(document.getElementById(element.id));
 
+            
+
             });
             //closeDisciplina();
             //viewDiscipline(id);
         }
 
+        //Verificando se não é undefined
+        var disciTitle = document.getElementById("discTitle");
+        if (typeof disciTitle === "undefined"){
+            paraVer = vendoDisciplina;
+            closeDisciplina()
+            viewDiscipline(paraVer);
+        };
 
         });
 
@@ -353,6 +367,14 @@ function respondeComentario(id){
 }
 
 function verRespostas(id){
+   // comentarioPaiWidgets = document.getElementById(`widgetsDiv${id}`);
+    //Ocultando o ver comentarios
+    //comentarioPaiWidgets.childNodes[1].innerHTML='';
+    var paiVerRespostas = document.getElementById(`verRespostas${id}`);
+    paiVerRespostas.innerHTML = '';
+
+
+
     console.log("mostrando respostas do comentario com id: "+id);
     //{id}/comentario_resposta
     url = `http://psoft-1152109412238.herokuapp.com/api/v1/disciplina/${id}/comentario_resposta`;
@@ -395,7 +417,7 @@ function verRespostas(id){
             //subdive de widgets em cada comentário
 
             widgetsDiv = document.createElement('div');
-            widgetsDiv.setAttribute('class', 'widgetsDiv');
+            widgetsDiv.setAttribute('id', `widgetsDiv${element.id}`);
 
 
             if (element.emailUsuario == userEmail){
@@ -403,7 +425,7 @@ function verRespostas(id){
             }
 
             widgetsDiv.innerHTML += `<a href=#two id="replyComment"> Responder</a>`;
-            widgetsDiv.innerHTML += `<a href=#two id="replyComment" onclick="verRespostas(${element.id})"> Ver Respostas</a>`;
+            widgetsDiv.innerHTML += `<a href=#two class="verRespostas" id="verRespostas${element.id}" onclick="verRespostas(${element.id})"> Ver Respostas</a>`;
             
             divComenta = document.createElement('div');
             divComenta.setAttribute('class', 'responderComentario');
@@ -511,6 +533,49 @@ function comentaDisciplina(id,userEmail,myToken){
     });
 
 
+
+}
+
+function mostraRanking(){
+    //ranking
+    url = "http://psoft-1152109412238.herokuapp.com/api/v1/disciplina/ranking";
+    
+    alert("mostrando ranking");
+
+   // var div = document.createElement('div');
+    //div.setAttribute('class', 'disciplina');
+
+    rdisciplinas = document.getElementById("rdisciplinas");
+    rdisciplinas.innerHTML = '';
+    var div = document.createElement('div');
+    div.setAttribute('class', 'disciplina');
+    div.innerHTML = 'Posição - Disciplina - Likes'
+    rdisciplinas.appendChild(div);
+
+
+
+    
+
+    var myToken = localStorage.getItem("token");
+
+    const myHeaders = new Headers();
+    myHeaders.append('Authorization', 'Bearer '+myToken);
+
+    var init = {
+        method: 'GET',
+        headers: myHeaders
+    };
+
+    fetch(url, init)
+    .then(res => res.json())
+    .then(function(response){
+        response.forEach(element => {
+            var div = document.createElement('div');
+            div.setAttribute('class', 'disciplina');
+            div.innerHTML = `${element.lugar}º - ${element.disciplina} - ${element.likes}`;
+            rdisciplinas.appendChild(div);
+        })
+    });
 
 }
 
