@@ -540,7 +540,11 @@ function mostraRanking(){
     //ranking
     url = "http://psoft-1152109412238.herokuapp.com/api/v1/disciplina/ranking";
     
-    alert("mostrando ranking");
+    if(isLogged()){
+        alert("mostrando ranking");
+    }else{
+        alert("Você precisa estar logado para ver o ranking");
+    }
 
    // var div = document.createElement('div');
     //div.setAttribute('class', 'disciplina');
