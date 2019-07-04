@@ -15,6 +15,8 @@
     transform: translate(-50%);
 }
 
+
+
 .lightbox {
 	/** Esconde a classe lightbox */
 	display: none;
@@ -156,7 +158,10 @@ input:hover {
   padding:8px 20px;
   background: #AED8F0;
   width: 300px;
+  text-align: center;
+  
 }
+
 
 .comentarioResposta{
   padding: 40px;
@@ -203,4 +208,9 @@ ul li{
   text-decoration: none;
   display: block;
   height: fit-content;
+}
+
+#rdi{
+  padding-left: 50%;
+  transform: translate(-20%);
 }
