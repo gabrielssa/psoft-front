@@ -1,6 +1,6 @@
 # :us: English
 
-resulting code from the software project course (UFCG). Made in html, css and javascript.
+Resulting code from the software project course (UFCG). Made in html, css and javascript.
 
 
 # Português Brasileiro
