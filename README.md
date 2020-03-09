@@ -1,9 +1,9 @@
-# psoft191-front
-:us:English
+# :us: English
 
 resulting code from the software project course (UFCG). Made in html, css and javascript.
 
-Português Brasileiro
+
+# Português Brasileiro
 
 Frontend do projeto de psoft 2019.1 na UFCG
 
