@@ -1,4 +1,10 @@
 # psoft191-front
+:us:English
+
+resulting code from the software project course (UFCG). Made in html, css and javascript.
+
+Português Brasileiro
+
 Frontend do projeto de psoft 2019.1 na UFCG
 
 O frontend foi feito completamente em js, html e css. Os arquivos existentes no projeto são: create_accout.html que possui um formulário para a criação de contas, nesse formulário o usuário pode colocar primeiro nome, último nome, e-mail e senha. A partir dessa página o usuário pode também acessar um link para logar, caso já tenha uma conta.
